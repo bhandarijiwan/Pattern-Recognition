@@ -34,7 +34,7 @@ samplesB = box_muller(meanB,sdB,NUMBER_OF_SAMPLES_PER_CLASS);
 samplesB = [samplesB, repmat(2,length(samplesB),1)];
 
 % combine the samples from both class
-samples = [samplesA;samplesB];
+%samples = [samplesA;samplesB];
 
 figure(1);
 gscatter(samples(:,1),samples(:,2),samples(:,3),['g' 'b'],['.'],[15]);
@@ -54,9 +54,9 @@ for i=1:TOTAL_SAMPLES
     
    
     distA = samples(i,1:2)-meanA;
-    distB = samples(i,1:2)-meanB;
-    gx_A = -round((distA*distA'),2);
-    gx_B = -round((distB*distB'),2);
+    
+    gx_A = round(dist*dist),2);
+    gx_B = round(abs(samples(i,1:2)-meanB),2);
     if(gx_A>gx_B)
         finalClassA=vertcat(finalClassA,samples(i,:));
     elseif(gx_B>gx_A)
@@ -73,21 +73,13 @@ gsa=gscatter(finalClassA(:,1),finalClassA(:,2),finalClassA(:,3),['g' 'r'],['.'],
 gsb=gscatter(finalClassB(:,1),finalClassB(:,2),finalClassB(:,3),['r' 'b'],['.'],[15]);
 %plot the boundary points
 
-if(length(boundaryPoints)>0)
-    cb=scatter(boundaryPoints(:,1),boundaryPoints(:,2),20,'black','filled');
-        legend( [gsa(1) gsb(2) gsa(2) cb ], ...
-     'Class A', 'Class B', 'Mis-Classified', 'Boundary Points','Location','NorthWest');
-
-else
-           legend( [gsa(1) gsb(2) gsa(2)  ], ...
-     'Class A', 'Class B', 'Mis-Classified','Location','NorthWest');
- 
-end
-
+cb=scatter(boundaryPoints(:,1),boundaryPoints(:,2),20,'black','filled');
 % 
 % 
 ylim([-20 40]);
 xlim([-10 20]);
+legend( [gsa(1) gsb(2) gsa(2) cb ], ...
+     'Class A', 'Class B', 'Mis-Classified', 'Boundary Points','Location','NorthWest');
 
 title('Minimum distance classifier')
 hold off;

@@ -14,7 +14,7 @@ NUMBER_OF_CLASSES=2;
 meanA = [1  1]; 
 sdA = [2 2];
 sigmaA   = [2 0; 0 2];
-priorA =0.5;
+priorA =0.2;
 classA = discriminantParams(meanA, sigmaA, priorA);
 
 
@@ -23,7 +23,7 @@ classA = discriminantParams(meanA, sigmaA, priorA);
 meanB = [6 6];
 sdB = [4 8];
 sigmaB = [4 0;0 8];
-priorB = 0.5;
+priorB = 0.8;
 classB = discriminantParams(meanB,sigmaB,priorB);
 
 
@@ -37,7 +37,7 @@ samplesB = box_muller(meanB,sdB,NUMBER_OF_SAMPLES_PER_CLASS);
 samplesB = [samplesB, repmat(2,length(samplesB),1)];
 
 % combine the samples from both class
-samples = [samplesA;samplesB];
+ samples = [samplesA;samplesB];
 
 figure(1);
 ylim([-10 10]);
