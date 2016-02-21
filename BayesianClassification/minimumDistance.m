@@ -22,19 +22,28 @@ sdB = [4 8];
 sigmaB = [4 0;0 8];
 priorB = 0.5;
 
+%%%%%%----- q=1 is for first distribution and q=2 is for second
+%%%%%%------ distribution. Change the mean and sigma values as well.
 
+q= 1; 
 
-%samples for class_A
-% denoting samples from class A by 1
-samplesA = box_muller(meanA,sdA,NUMBER_OF_SAMPLES_PER_CLASS); 
-samplesA = [samplesA, repmat(1,length(samplesA),1)];
+if(exist(sprintf('data_q%d',q),'file')~=2)
 
-%samples for class_B
-samplesB = box_muller(meanB,sdB,NUMBER_OF_SAMPLES_PER_CLASS);
-samplesB = [samplesB, repmat(2,length(samplesB),1)];
+    %samples for class_A
+    % denoting samples from class A by 1
+    samplesA = box_muller(meanA,sdA,NUMBER_OF_SAMPLES_PER_CLASS); 
+    samplesA = [samplesA, repmat(1,length(samplesA),1)];
 
-% combine the samples from both class
-samples = [samplesA;samplesB];
+    %samples for class_B
+    samplesB = box_muller(meanB,sdB,NUMBER_OF_SAMPLES_PER_CLASS);
+    samplesB = [samplesB, repmat(2,length(samplesB),1)];
+
+    % combine the samples from both class
+    samples = [samplesA;samplesB];
+    csvwrite(sprintf('data_q%d.csv',q),samples);
+else
+    samples=csvread(sprintf('data_q%d.csv',q));
+end
 
 figure(1);
 gscatter(samples(:,1),samples(:,2),samples(:,3),['g' 'b'],['.'],[15]);

@@ -14,6 +14,7 @@ NUMBER_OF_CLASSES=2;
 meanA = [1  1]; 
 sdA = [2 2];
 sigmaA   = [2 0; 0 2];
+
 priorA =0.2;
 classA = discriminantParams(meanA, sigmaA, priorA);
 
@@ -21,23 +22,39 @@ classA = discriminantParams(meanA, sigmaA, priorA);
 
 %%%----set and calculate the parameters for class B
 meanB = [6 6];
-sdB = [4 8];
-sigmaB = [4 0;0 8];
-priorB = 0.8;
+sdB = [2 2];
+sigmaB = [2 0;0 2];
+
+% prior probability for class B. 
+
+priorB = 0.5;
+
 classB = discriminantParams(meanB,sigmaB,priorB);
 
+%%%%%%----- q=1 is for first distribution and q=2 is for second
+%%%%%%------ distribution. Change the mean and sigma values as well.
 
-%samples for class_A
-% denoting samples from class A by 1
-samplesA = box_muller(meanA,sdA,NUMBER_OF_SAMPLES_PER_CLASS); 
-samplesA = [samplesA, repmat(1,length(samplesA),1)];
+q= 1; 
 
-%samples for class_B
-samplesB = box_muller(meanB,sdB,NUMBER_OF_SAMPLES_PER_CLASS);
-samplesB = [samplesB, repmat(2,length(samplesB),1)];
 
-% combine the samples from both class
- samples = [samplesA;samplesB];
+if(exist(sprintf('data_q%d',q),'file')~=2)
+
+    %samples for class_A
+    % denoting samples from class A by 1
+    samplesA = box_muller(meanA,sdA,NUMBER_OF_SAMPLES_PER_CLASS); 
+    samplesA = [samplesA, repmat(1,length(samplesA),1)];
+
+    %samples for class_B
+    samplesB = box_muller(meanB,sdB,NUMBER_OF_SAMPLES_PER_CLASS);
+    samplesB = [samplesB, repmat(2,length(samplesB),1)];
+
+    % combine the samples from both class
+    samples = [samplesA;samplesB];
+    csvwrite(sprintf('data_q%d.csv',q),samples);
+else
+    samples=csvread(sprintf('data_q%d.csv',q));
+end
+
 
 figure(1);
 ylim([-10 10]);
