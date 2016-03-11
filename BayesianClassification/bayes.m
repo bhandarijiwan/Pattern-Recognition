@@ -1,7 +1,4 @@
 
-
-%%%---------------Example from the book-------- 
-
 NUMBER_OF_SAMPLES_PER_CLASS =10000;
 NUMBER_OF_FEATURES=2;
 TOTAL_SAMPLES=NUMBER_OF_SAMPLES_PER_CLASS*2;
@@ -12,19 +9,17 @@ NUMBER_OF_CLASSES=2;
 
 %%%%--------set and calculate the parameters for class A
 meanA = [1  1]; 
-sdA = [2 2];
 sigmaA   = [2 0; 0 2];
-
-priorA =0.2;
+sdA = diag(sigmaA);
+priorA =0.5;
 classA = discriminantParams(meanA, sigmaA, priorA);
 
 
 
 %%%----set and calculate the parameters for class B
 meanB = [6 6];
-sdB = [2 2];
-sigmaB = [2 0;0 2];
-
+sigmaB = [4 0;0 8];
+sdB = diag(sigmaB)';
 % prior probability for class B. 
 
 priorB = 0.5;
@@ -34,11 +29,12 @@ classB = discriminantParams(meanB,sigmaB,priorB);
 %%%%%%----- q=1 is for first distribution and q=2 is for second
 %%%%%%------ distribution. Change the mean and sigma values as well.
 
-q= 1; 
+q= 2; 
 
 
-if(exist(sprintf('data_q%d',q),'file')~=2)
+if(exist(strcat(sprintf('data_q%d',q),'.csv'),'file')~=2)
 
+    disp('Data Not found so regenerating');
     %samples for class_A
     % denoting samples from class A by 1
     samplesA = box_muller(meanA,sdA,NUMBER_OF_SAMPLES_PER_CLASS); 
@@ -114,14 +110,23 @@ chernoff=errorBounds('chernoff',classA,classB);
 bhatta = errorBounds('bhatt',classA,classB);
 ma =sum(finalClassA(:,3)==2);
 mb= sum(finalClassB(:,3)==1);
-summary=struct('Misclassified_from_class_A',ma,...
-       'Misclassified_from_Class_B',mb,...
-       'Total_Misclassified',ma+mb,...
-       'Points_on_decision_boundary',length(boundaryPoints),...
-       'Chernoff_Error_Bound',chernoff,...
-       'Bhattacharyya_Error_Bound',bhatta);
 
+summary=struct('Samples_in_Class_A_after_classification',length(finalClassA),...
+        'Samples_in_Class_B_after_classification',length(finalClassB),...
+        'Misclassified_Into_class_A',ma,...
+        'Misclassified_Into_Class_B',mb,...
+        'Total_Misclassified',ma+mb,...
+        'Points_on_decision_boundary',length(boundaryPoints),...
+        'Chernoff_Error_Bound',chernoff,...
+        'Bhattacharyya_Error_Bound',bhatta);
 disp(summary);
+
+% summary=struct('Misclassified_from_class_A',ma,...
+%        'Misclassified_from_Class_B',mb,...
+%        'Total_Misclassified',ma+mb,...
+%        'Points_on_decision_boundary',length(boundaryPoints),...
+%        'Chernoff_Error_Bound',chernoff,...
+%        'Bhattacharyya_Error_Bound',bhatta);
 
 
 
