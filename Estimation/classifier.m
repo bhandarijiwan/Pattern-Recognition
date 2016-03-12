@@ -22,9 +22,6 @@ for i=1:length(samples)
         boundaryPoints=vertcat(boundaryPoints,samples(i,:));
     end
 end
-
-disp(size(finalClassA));
-disp(size(finalClassB));
 % plot the samples and decision boundaries.
 
 a=bayesParamA.W-bayesParamB.W;
@@ -45,12 +42,15 @@ gsa=gscatter(finalClassA(:,1),finalClassA(:,2),finalClassA(:,3),['g' 'r'],'.',15
 gsb=gscatter(finalClassB(:,1),finalClassB(:,2),finalClassB(:,3),['r' 'b'],'.',15);
 %plot the boundary points
 
+if(~isempty(boundaryPoints))
 cb=scatter(boundaryPoints(:,1),boundaryPoints(:,2),20,'black','filled');
-% 
-% 
 legend([db gsa(1) gsb(2) gsa(2) cb ], 'Decision Boundary', ...
      'Class A', 'Class B', 'Mis-Classified', 'Boundary Points','Location','NorthWest');
-
+else
+legend([db gsa(1) gsb(2) gsa(2)], 'Decision Boundary', ...
+     'Class A', 'Class B', 'Mis-Classified','Location','NorthWest');
+end    
+ 
 hold off
 % end of plot
 

@@ -19,17 +19,25 @@ clear samples;
 priorA=0.5;
 % mlest, given samples returns mean and covariance matrix.
 MLEparamsA = mlest (samplesA(:,1:2));
-% sigmaA = (diag(MLEparamsA.covariance))';
+
 % once we estimate the distribution paramters, 
 % we need to calcuate the discriminant parameters for 
 % bayesian classifier.
+
+disp(MLEparamsA.mean);
+
+disp(MLEparamsA.covariance);
+
 bayesParamA = discriminantParams(MLEparamsA.mean,...
                                 MLEparamsA.covariance,...
                                 priorA);
 % Do the same class A for class B;
 priorB = 0.5;
 MLEparamsB = mlest (samplesB(:,1:2));
-% sigmaB = (diag(MLEparamsB.covariance))';
+
+disp(MLEparamsB.mean);
+disp(MLEparamsB.covariance);
+
 bayesParamB = discriminantParams(MLEparamsB.mean,...
                                  MLEparamsB.covariance,...
                                 priorB);
@@ -59,7 +67,12 @@ indx = randperm(N,N/10);
 
 priorA = 0.5;
 MLEparamsA = mlest(samplesA(indx,1:2));
-sigmaA = (diag(MLEparamsA.covariance));
+
+disp(MLEparamsA.mean);
+
+disp(MLEparamsA.covariance);
+
+
 bayesParamA = discriminantParams(MLEparamsA.mean,...
                                 MLEparamsA.covariance,...
                                 priorA);
@@ -67,7 +80,10 @@ bayesParamA = discriminantParams(MLEparamsA.mean,...
                             
 priorB = 0.5;
 MLEparamsB = mlest (samplesB(indx,1:2));
-sigmaB = (diag(MLEparamsB.covariance))';
+
+disp(MLEparamsB.mean);
+disp(MLEparamsB.covariance);
+
 bayesParamB = discriminantParams(MLEparamsB.mean,...
                                  MLEparamsB.covariance,...
                                 priorB);
@@ -107,13 +123,28 @@ MLEparamsA = mlest (samplesA(:,1:2));
 % once we estimate the distribution paramters, 
 % we need to calcuate the discriminant parameters for 
 % bayesian classifier.
+
+disp('Class 1');
+disp('Estimated Mean:')
+disp(MLEparamsA.mean);
+
+disp('Estimated Covariance Matrix');
+disp(MLEparamsA.covariance);
+
 bayesParamA = discriminantParams(MLEparamsA.mean,...
                                 MLEparamsA.covariance,...
                                 priorA);
 % Do the same class A for class B;
 priorB = 0.5;
 MLEparamsB = mlest (samplesB(:,1:2));
-% sigmaB = (diag(MLEparamsB.covariance))';
+
+disp('Class 2');
+disp('Estimated Mean:')
+disp(MLEparamsB.mean);
+
+disp('Estimated Covariance Matrix');
+disp(MLEparamsB.covariance);
+
 bayesParamB = discriminantParams(MLEparamsB.mean,...
                                  MLEparamsB.covariance,...
                                 priorB);
@@ -140,11 +171,17 @@ mySeed = 37;
 rng(mySeed,'twister');
 N=  length(samplesA);
 indx = randperm(N,N/10);
-
-
 priorA = 0.5;
 MLEparamsA = mlest(samplesA(indx,1:2));
-sigmaA = (diag(MLEparamsA.covariance));
+
+disp('Class 1');
+disp('Estimated Mean:')
+disp(MLEparamsA.mean);
+
+disp('Estimated Covariance Matrix');
+disp(MLEparamsA.covariance);
+
+
 bayesParamA = discriminantParams(MLEparamsA.mean,...
                                 MLEparamsA.covariance,...
                                 priorA);
@@ -152,6 +189,15 @@ bayesParamA = discriminantParams(MLEparamsA.mean,...
                             
 priorB = 0.5;
 MLEparamsB = mlest (samplesB(indx,1:2));
+
+disp('Class 2');
+disp('Estimated Mean:')
+disp(MLEparamsB.mean);
+
+disp('Estimated Covariance Matrix');
+disp(MLEparamsB.covariance);
+
+
 sigmaB = (diag(MLEparamsB.covariance))';
 bayesParamB = discriminantParams(MLEparamsB.mean,...
                                  MLEparamsB.covariance,...

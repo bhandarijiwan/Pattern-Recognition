@@ -10,7 +10,7 @@ NUMBER_OF_CLASSES=2;
 %%%%--------set and calculate the parameters for class A
 meanA = [1  1]; 
 sigmaA   = [2 0; 0 2];
-sdA = diag(sigmaA);
+sdA = sqrt(diag(sigmaA)');
 priorA =0.5;
 classA = discriminantParams(meanA, sigmaA, priorA);
 
@@ -19,7 +19,7 @@ classA = discriminantParams(meanA, sigmaA, priorA);
 %%%----set and calculate the parameters for class B
 meanB = [6 6];
 sigmaB = [4 0;0 8];
-sdB = diag(sigmaB)';
+sdB = sqrt(diag(sigmaB)');
 % prior probability for class B. 
 
 priorB = 0.5;
@@ -55,9 +55,13 @@ end
 figure(1);
 ylim([-10 10]);
 xlim([-10 10]);
-gscatter(samples(:,1),samples(:,2),samples(:,3),['g' 'b'],['.'],[15]);
+gscatter(samples(:,1),samples(:,2),samples(:,3),['g' 'b'],'.',15);
 legend('Class A','Class B');
 title('Data before classification');
+
+% cov(samplesA(:,1:2))
+% 
+% cov(samplesB(:,1:2))
 
 clear samplesA samplesB;
 
@@ -120,13 +124,6 @@ summary=struct('Samples_in_Class_A_after_classification',length(finalClassA),...
         'Chernoff_Error_Bound',chernoff,...
         'Bhattacharyya_Error_Bound',bhatta);
 disp(summary);
-
-% summary=struct('Misclassified_from_class_A',ma,...
-%        'Misclassified_from_Class_B',mb,...
-%        'Total_Misclassified',ma+mb,...
-%        'Points_on_decision_boundary',length(boundaryPoints),...
-%        'Chernoff_Error_Bound',chernoff,...
-%        'Bhattacharyya_Error_Bound',bhatta);
 
 
 
