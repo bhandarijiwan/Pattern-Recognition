@@ -18,7 +18,7 @@ classA = discriminantParams(meanA, sigmaA, priorA);
 
 %%%----set and calculate the parameters for class B
 meanB = [6 6];
-sigmaB = [4 0;0 8];
+sigmaB = [2 0;0 2];
 sdB = sqrt(diag(sigmaB)');
 % prior probability for class B. 
 
@@ -29,7 +29,7 @@ classB = discriminantParams(meanB,sigmaB,priorB);
 %%%%%%----- q=1 is for first distribution and q=2 is for second
 %%%%%%------ distribution. Change the mean and sigma values as well.
 
-q= 2; 
+q= 1; 
 
 
 if(exist(strcat(sprintf('data_q%d',q),'.csv'),'file')~=2)
@@ -102,11 +102,11 @@ gsa=gscatter(finalClassA(:,1),finalClassA(:,2),finalClassA(:,3),['g' 'r'],['.'],
 gsb=gscatter(finalClassB(:,1),finalClassB(:,2),finalClassB(:,3),['r' 'b'],['.'],[15]);
 %plot the boundary points
 
-cb=scatter(boundaryPoints(:,1),boundaryPoints(:,2),20,'black','filled');
+% cb=scatter(boundaryPoints(:,1),boundaryPoints(:,2),20,'black','filled');
 % 
 % 
-legend([db gsa(1) gsb(2) gsa(2) cb ], 'Decision Boundary', ...
-     'Class A', 'Class B', 'Mis-Classified', 'Boundary Points','Location','NorthWest');
+legend([db gsa(1) gsb(2) gsa(2)  ], 'Decision Boundary', ...
+     'Class A', 'Class B', 'Mis-Classified','Location','NorthWest');
 
 hold off
 

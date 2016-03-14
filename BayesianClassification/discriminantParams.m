@@ -14,9 +14,7 @@ function [ out ] = discriminantParams( mu, sigma , prior )
   
   w = sigma_inverse*mu;
   
-  w_i0= -1/2 .* mu' * sigma_inverse* mu -1/2 * log(det(sigma)) + prior;
-
-  
+  w_i0= -1/2 .* mu' * sigma_inverse* mu -1/2 * log(det(sigma)) + log(prior);
   out=struct('W',W,'w',w,'w_i0',w_i0,...
               'mu',mu,'sigma',sigma,'sigmaInverse','sigma_inverse'...
                ,'det',det(sigma),'prior',prior);
