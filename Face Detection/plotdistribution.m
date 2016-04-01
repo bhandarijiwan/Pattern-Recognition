@@ -23,21 +23,26 @@ title('Skin Color Distribution For Training Face  ');
 
 end
 
-% temp=mvnrnd(mean,Sigma,1000);
+% temp=mvnrnd(mu,sigma,1000);
 % 
 % mint=min(temp(:,1));
 % maxt=max(temp(:,1));
 % 
 % mint1=min(temp(:,2));
 % maxt1=max(temp(:,2));
-% 
+
 % x= min(mint,mint1):0.5:max(maxt,maxt1);
+
 % y= x;
 % 
 % [X,Y]=meshgrid(x,y);
-% Z=mvnpdf([X(:) Y(:)],mean,Sigma);
+
+% Z=mvnpdf(temp,mu,sigma);
+
 % Z = reshape(Z,length(x),length(y));
-% surf(X,Y,Z);
+
+% surf(temp,Z);
+
 % % caxis([min(Z(:))-.5*range(Z(:)),max(Z(:))]);
 % 
 % xlabel('r','FontWeight','bold','FontSize',15); 
