@@ -97,7 +97,7 @@ recognitionNplot(testFiles,trainFiles,0.9,coeffs,...
 recognitionNplot(testFiles,trainFiles,0.95,coeffs,...
     eigvecs,eigvals,fids,tstnames,avgFace,imgRow,imgCol);
 
-%% (S3) Setup for part 3.b;
+%% (S3) Setup for part 3.B;
 
 
 setup('./Data/Train/fa_H2/','./Data/Train/gen1/');
@@ -187,6 +187,12 @@ recognitionNplot(testFiles,trainFiles,0.95,coeffs,...
 
 %% Part 3.B test the performance of the eigenface approach on faces not in... 
    % the gallery set (i.e., intruders)
+
+setup('./Data/Train/fa_L2/','./Data/Train/genL/');
+
+default_Test_Loc='./Data/Test/fb_L/';
+[testFiles, tstnames,s] = imgIn(default_Test_Loc);
+testFiles = bsxfun(@minus,testFiles,avgFace);
 
 recognitionNROCplot(testFiles,0.95,coeffs,...
                                eigvecs,eigvals,fids,tstnames);   
