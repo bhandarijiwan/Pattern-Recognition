@@ -13,10 +13,15 @@ Thumbs.db
 
 # Compiled MEX binaries (all platforms)
 *.mex*
-
+*.mat*
 # Simulink Code Generation
 slprj/
 
 # Session info
 octave-workspace
+# Matlab workspace file
+
+# generated data
+
+LibData/
 
